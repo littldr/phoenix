@@ -197,11 +197,7 @@ class Spans:
             span_ids_list = list({*span_ids})
         else:
             assert spans is not None
-            _span_ids = [
-                span.get("span_id")
-                for span in spans
-                if span.get("span_id")
-            ]
+            _span_ids = [span.get("span_id") for span in spans if span.get("span_id")]
             span_ids_list = list(set(s for s in _span_ids if isinstance(s, str) and s))
 
         if not span_ids_list:
@@ -284,11 +280,7 @@ class Spans:
             span_ids_list = list({*span_ids})
         else:  # spans is not None
             assert spans is not None
-            _span_ids = [
-                span.get("span_id")
-                for span in spans
-                if span.get("span_id")
-            ]
+            _span_ids = [span.get("span_id") for span in spans if span.get("span_id")]
             span_ids_list = list(set(s for s in _span_ids if isinstance(s, str) and s))
 
         if not span_ids_list:
@@ -567,11 +559,7 @@ class AsyncSpans:
             span_ids_list = list({*span_ids})
         else:  # spans is not None
             assert spans is not None
-            _span_ids = [
-                span.get("span_id")
-                for span in spans
-                if span.get("span_id")
-            ]
+            _span_ids = [span.get("span_id") for span in spans if span.get("span_id")]
             span_ids_list = list(set(s for s in _span_ids if isinstance(s, str) and s))
 
         if not span_ids_list:
@@ -653,11 +641,7 @@ class AsyncSpans:
             span_ids_list = list({*span_ids})
         else:  # spans is not None
             assert spans is not None
-            _span_ids = [
-                span.get("span_id")
-                for span in spans
-                if span.get("span_id")
-            ]
+            _span_ids = [span.get("span_id") for span in spans if span.get("span_id")]
             span_ids_list = list(set(s for s in _span_ids if isinstance(s, str) and s))
 
         if not span_ids_list:
