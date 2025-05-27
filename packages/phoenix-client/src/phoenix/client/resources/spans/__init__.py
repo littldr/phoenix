@@ -197,10 +197,10 @@ class Spans:
             span_ids_list = list({*span_ids})
         else:  # spans is not None
             assert spans is not None
-            span_ids_list = []
+            span_ids_list: list[str] = []
             for span in spans:
                 if "span_id" in span and span["span_id"]:
-                    span_ids_list.append(span["span_id"])
+                    span_ids_list.append(span["span_id"])  # type: ignore[arg-type]
             span_ids_list = list({*span_ids_list})  # Remove duplicates
 
         if not span_ids_list:
@@ -283,10 +283,10 @@ class Spans:
             span_ids_list = list({*span_ids})
         else:  # spans is not None
             assert spans is not None
-            span_ids_list = []
+            span_ids_list: list[str] = []
             for span in spans:
                 if "span_id" in span and span["span_id"]:
-                    span_ids_list.append(span["span_id"])
+                    span_ids_list.append(span["span_id"])  # type: ignore[arg-type]
             span_ids_list = list({*span_ids_list})  # Remove duplicates
 
         if not span_ids_list:
@@ -363,13 +363,9 @@ class Spans:
             }
 
             if start_time:
-                params["start_time"] = (
-                    start_time.isoformat() if isinstance(start_time, datetime) else start_time
-                )
+                params["start_time"] = start_time.isoformat()  # type: ignore[reportUnnecessaryIsInstance]
             if end_time:
-                params["end_time"] = (
-                    end_time.isoformat() if isinstance(end_time, datetime) else end_time
-                )
+                params["end_time"] = end_time.isoformat()  # type: ignore[reportUnnecessaryIsInstance]
             if annotation_names:
                 params["annotationNames"] = annotation_names
             if cursor:
@@ -569,10 +565,10 @@ class AsyncSpans:
             span_ids_list = list({*span_ids})
         else:  # spans is not None
             assert spans is not None
-            span_ids_list = []
+            span_ids_list: list[str] = []
             for span in spans:
                 if "span_id" in span and span["span_id"]:
-                    span_ids_list.append(span["span_id"])
+                    span_ids_list.append(span["span_id"])  # type: ignore[arg-type]
             span_ids_list = list({*span_ids_list})  # Remove duplicates
 
         if not span_ids_list:
@@ -654,10 +650,10 @@ class AsyncSpans:
             span_ids_list = list({*span_ids})
         else:  # spans is not None
             assert spans is not None
-            span_ids_list = []
+            span_ids_list: list[str] = []
             for span in spans:
                 if "span_id" in span and span["span_id"]:
-                    span_ids_list.append(span["span_id"])
+                    span_ids_list.append(span["span_id"])  # type: ignore[arg-type]
             span_ids_list = list({*span_ids_list})  # Remove duplicates
 
         if not span_ids_list:
@@ -734,13 +730,9 @@ class AsyncSpans:
             }
 
             if start_time:
-                params["start_time"] = (
-                    start_time.isoformat() if isinstance(start_time, datetime) else start_time
-                )
+                params["start_time"] = start_time.isoformat()  # type: ignore[reportUnnecessaryIsInstance]
             if end_time:
-                params["end_time"] = (
-                    end_time.isoformat() if isinstance(end_time, datetime) else end_time
-                )
+                params["end_time"] = end_time.isoformat()  # type: ignore[reportUnnecessaryIsInstance]
             if annotation_names:
                 params["annotationNames"] = annotation_names
             if cursor:
