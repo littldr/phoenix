@@ -3243,7 +3243,7 @@ export interface operations {
                 /** @description Exclusive upper bound time */
                 end_time?: string | null;
                 /** @description If provided, only include spans that have at least one annotation with one of these names. */
-                annotationNames?: string[] | null;
+                annotation_names?: string[] | null;
             };
             header?: never;
             path: {
