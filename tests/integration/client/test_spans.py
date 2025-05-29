@@ -345,7 +345,7 @@ class TestClientForSpansRetrieval:
             assert "start_time" in span
             assert "end_time" in span
             assert "status_code" in span
-            
+
             # Check context structure
             context = span["context"]
             assert isinstance(context, dict)
@@ -687,7 +687,7 @@ class TestClientForSpansRetrieval:
             assert "start_time" in span
             assert "end_time" in span
             assert "status_code" in span
-            
+
             # Check datetime fields are strings (ISO format)
             assert isinstance(span["start_time"], str)
             assert isinstance(span["end_time"], str)
