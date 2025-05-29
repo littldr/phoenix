@@ -198,7 +198,7 @@ class Spans:
                 for span in spans
                 if span.get("context", {}).get("span_id")
             ]
-            span_ids_list = list(set(s for s in _span_ids if isinstance(s, str) and s))
+            span_ids_list = list(set(s for s in _span_ids if s))
 
         if not span_ids_list:
             return pd.DataFrame()
@@ -285,7 +285,7 @@ class Spans:
                 for span in spans
                 if span.get("context", {}).get("span_id")
             ]
-            span_ids_list = list(set(s for s in _span_ids if isinstance(s, str) and s))
+            span_ids_list = list(set(s for s in _span_ids if s))
 
         if not span_ids_list:
             return []
@@ -569,7 +569,7 @@ class AsyncSpans:
                 for span in spans
                 if span.get("context", {}).get("span_id")
             ]
-            span_ids_list = list(set(s for s in _span_ids if isinstance(s, str) and s))
+            span_ids_list = list(set(s for s in _span_ids if s))
 
         if not span_ids_list:
             return pd.DataFrame()
@@ -655,7 +655,7 @@ class AsyncSpans:
                 for span in spans
                 if span.get("context", {}).get("span_id")
             ]
-            span_ids_list = list(set(s for s in _span_ids if isinstance(s, str) and s))
+            span_ids_list = list(set(s for s in _span_ids if s))
 
         if not span_ids_list:
             return []
