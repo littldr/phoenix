@@ -11,7 +11,6 @@ if TYPE_CHECKING:
 
 from phoenix.client.__generated__ import v1
 from phoenix.client.types.spans import (
-    Span,
     SpanQuery,
     convert_otlp_span_to_span,
 )
@@ -141,7 +140,7 @@ class Spans:
         *,
         spans_dataframe: Optional["pd.DataFrame"] = None,
         span_ids: Optional[Iterable[str]] = None,
-        spans: Optional[Iterable[Span]] = None,
+        spans: Optional[Iterable[v1.Span]] = None,
         project_identifier: str = "default",
         limit: int = 1000,
         timeout: Optional[int] = DEFAULT_TIMEOUT_IN_SECONDS,
@@ -197,7 +196,7 @@ class Spans:
             span_ids_list = list({*span_ids})
         else:
             assert spans is not None
-            _span_ids = [span.get("span_id") for span in spans if span.get("span_id")]
+            _span_ids = [span["context"]["span_id"] for span in spans if span.get("context", {}).get("span_id")]
             span_ids_list = list(set(s for s in _span_ids if isinstance(s, str) and s))
 
         if not span_ids_list:
@@ -242,7 +241,7 @@ class Spans:
         self,
         *,
         span_ids: Optional[Iterable[str]] = None,
-        spans: Optional[Iterable[Span]] = None,
+        spans: Optional[Iterable[v1.Span]] = None,
         project_identifier: str,
         limit: int = 1000,
         timeout: Optional[int] = DEFAULT_TIMEOUT_IN_SECONDS,
@@ -280,7 +279,7 @@ class Spans:
             span_ids_list = list({*span_ids})
         else:  # spans is not None
             assert spans is not None
-            _span_ids = [span.get("span_id") for span in spans if span.get("span_id")]
+            _span_ids = [span["context"]["span_id"] for span in spans if span.get("context", {}).get("span_id")]
             span_ids_list = list(set(s for s in _span_ids if isinstance(s, str) and s))
 
         if not span_ids_list:
@@ -326,7 +325,7 @@ class Spans:
         limit: int = 100,
         sort_direction: Literal["asc", "desc"] = "desc",
         timeout: Optional[int] = DEFAULT_TIMEOUT_IN_SECONDS,
-    ) -> list[Span]:
+    ) -> list[v1.Span]:
         """
         Retrieves spans with simple filtering options.
 
@@ -347,7 +346,7 @@ class Spans:
         Raises:
             httpx.HTTPStatusError: If the API returns an error response.
         """
-        all_spans: list[v1.OtlpSpan] = []
+        all_spans: list[v1.Span] = []
         cursor: Optional[str] = None
         page_size = min(100, limit)
 
@@ -367,7 +366,7 @@ class Spans:
                 params["cursor"] = cursor
 
             response = self._client.get(
-                url=f"v1/projects/{project_identifier}/spans/otlpv1",
+                url=f"v1/projects/{project_identifier}/spans",
                 params=params,
                 headers={"accept": "application/json"},
                 timeout=timeout,
@@ -383,7 +382,7 @@ class Spans:
             if not cursor or not spans:
                 break
 
-        return [convert_otlp_span_to_span(cast(dict[str, Any], span)) for span in all_spans[:limit]]
+        return all_spans[:limit]
 
 
 class AsyncSpans:
@@ -465,7 +464,7 @@ class AsyncSpans:
                     )
                     project_response.raise_for_status()
                     project = project_response.json()
-                    project_name = project["name"]
+                    project_name = project["data"]["name"]
                 else:
                     project_name = project_identifier
 
@@ -504,7 +503,7 @@ class AsyncSpans:
         *,
         spans_dataframe: Optional["pd.DataFrame"] = None,
         span_ids: Optional[Iterable[str]] = None,
-        spans: Optional[Iterable[Span]] = None,
+        spans: Optional[Iterable[v1.Span]] = None,
         project_identifier: str,
         limit: int = 1000,
         timeout: Optional[int] = DEFAULT_TIMEOUT_IN_SECONDS,
@@ -560,7 +559,7 @@ class AsyncSpans:
             span_ids_list = list({*span_ids})
         else:  # spans is not None
             assert spans is not None
-            _span_ids = [span.get("span_id") for span in spans if span.get("span_id")]
+            _span_ids = [span["context"]["span_id"] for span in spans if span.get("context", {}).get("span_id")]
             span_ids_list = list(set(s for s in _span_ids if isinstance(s, str) and s))
 
         if not span_ids_list:
@@ -604,7 +603,7 @@ class AsyncSpans:
         self,
         *,
         span_ids: Optional[Iterable[str]] = None,
-        spans: Optional[Iterable[Span]] = None,
+        spans: Optional[Iterable[v1.Span]] = None,
         project_identifier: str,
         limit: int = 1000,
         timeout: Optional[int] = DEFAULT_TIMEOUT_IN_SECONDS,
@@ -642,7 +641,7 @@ class AsyncSpans:
             span_ids_list = list({*span_ids})
         else:  # spans is not None
             assert spans is not None
-            _span_ids = [span.get("span_id") for span in spans if span.get("span_id")]
+            _span_ids = [span["context"]["span_id"] for span in spans if span.get("context", {}).get("span_id")]
             span_ids_list = list(set(s for s in _span_ids if isinstance(s, str) and s))
 
         if not span_ids_list:
@@ -688,7 +687,7 @@ class AsyncSpans:
         limit: int = 100,
         sort_direction: Literal["asc", "desc"] = "desc",
         timeout: Optional[int] = DEFAULT_TIMEOUT_IN_SECONDS,
-    ) -> list[Span]:
+    ) -> list[v1.Span]:
         """
         Retrieves spans with simple filtering options.
 
@@ -709,7 +708,7 @@ class AsyncSpans:
         Raises:
             httpx.HTTPStatusError: If the API returns an error response.
         """
-        all_spans: list[v1.OtlpSpan] = []
+        all_spans: list[v1.Span] = []
         cursor: Optional[str] = None
         page_size = min(100, limit)
 
@@ -729,7 +728,7 @@ class AsyncSpans:
                 params["cursor"] = cursor
 
             response = await self._client.get(
-                url=f"v1/projects/{project_identifier}/spans/otlpv1",
+                url=f"v1/projects/{project_identifier}/spans",
                 params=params,
                 headers={"accept": "application/json"},
                 timeout=timeout,
@@ -745,7 +744,7 @@ class AsyncSpans:
             if not cursor or not spans:
                 break
 
-        return [convert_otlp_span_to_span(cast(dict[str, Any], span)) for span in all_spans[:limit]]
+        return all_spans[:limit]
 
 
 def _to_iso_format(value: Optional[datetime]) -> Optional[str]:
