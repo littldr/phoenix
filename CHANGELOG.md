@@ -1,5 +1,19 @@
 # Changelog
 
+## [10.6.0](https://github.com/Arize-ai/phoenix/compare/arize-phoenix-v10.5.0...arize-phoenix-v10.6.0) (2025-06-02)
+
+
+### Features
+
+* bump table, add more integrations ([#7863](https://github.com/Arize-ai/phoenix/issues/7863)) ([c71480a](https://github.com/Arize-ai/phoenix/commit/c71480a42eeea485c92061593a6b4480b82b4da3))
+* empty state for prompts and experiments ([#7865](https://github.com/Arize-ai/phoenix/issues/7865)) ([f571c7b](https://github.com/Arize-ai/phoenix/commit/f571c7b05ed85cc0491a4444a807eb6630ffa919))
+
+
+### Bug Fixes
+
+* deprecate compact search field ([#7860](https://github.com/Arize-ai/phoenix/issues/7860)) ([2cf49b9](https://github.com/Arize-ai/phoenix/commit/2cf49b94933000a75a87456ac99275f5d6d9f3bd))
+* properly use semantic colors for latency ([#7853](https://github.com/Arize-ai/phoenix/issues/7853)) ([d8c705e](https://github.com/Arize-ai/phoenix/commit/d8c705e7a7b89d952039f73f0c159418728ad97b))
+
 ## [10.5.0](https://github.com/Arize-ai/phoenix/compare/arize-phoenix-v10.4.0...arize-phoenix-v10.5.0) (2025-05-30)
 
 
